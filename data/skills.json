@@ -1,0 +1,13 @@
+[
+    { "id": 0, "name": "Origin", "parent": "" },
+    { "id": 0, "name": "Skills", "parent": "Origin" },
+    { "id": 1, "name": "Domain", "parent": "Origin" },
+    { "id": 2, "name": "Analytics", "parent": "Skills", "size": 3 },
+    { "id": 3, "name": "Project Management", "parent": "Skills", "size": 3 },
+    { "id": 4, "name": "Climate Policy", "parent": "Domain", "size": 3 },
+    { "id": 6, "name": "Communications", "parent": "Domain", "size": 3 },
+    { "id": 5, "name": "Logistics", "parent": "Domain", "size": 3 },
+    { "id": 6, "name": "Transport", "parent": "Domain", "size": 3 },
+    { "id": 6, "name": "Development", "parent": "Domain", "size": 1 },
+    { "id": 6, "name": "Research", "parent": "Domain", "size": 1 }
+]

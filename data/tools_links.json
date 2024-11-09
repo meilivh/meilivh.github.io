@@ -1,0 +1,22 @@
+[
+  { "source": 0, "target": 2, "value": 5 },  
+  { "source": 0, "target": 7, "value": 5 },  
+  { "source": 0, "target": 10, "value": 1 }, 
+  { "source": 0, "target": 8, "value": 1 },  
+  { "source": 1, "target": 5, "value": 5 },  
+  { "source": 1, "target": 6, "value": 5 },  
+  { "source": 1, "target": 4, "value": 5 },  
+  { "source": 1, "target": 10, "value": 1 }, 
+  { "source": 8, "target": 0, "value": 2 },  
+  { "source": 8, "target": 10, "value": 5 }, 
+  { "source": 8, "target": 11, "value": 5 }, 
+  { "source": 9, "target": 0, "value": 1 },  
+  { "source": 9, "target": 6, "value": 2 },  
+  { "source": 10, "target": 11, "value": 5 },
+  { "source": 8, "target": 13, "value": 1 }, 
+  { "source": 12, "target": 13, "value": 1 }, 
+  { "source": 12, "target": 14, "value": 1 }, 
+  { "source": 13, "target": 14, "value": 1 }, 
+  { "source": 3, "target": 4, "value": 1 },
+  { "source": 14, "target": 4, "value": 1 }
+]

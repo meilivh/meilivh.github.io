@@ -7,6 +7,12 @@ body {
 	font-family: "Be Vietnam Pro", sans-serif;
 }
 
+main {
+    width: 95%;
+    left: 2.5%;
+    position: absolute;
+}
+
 text {
 	font-family: "Be Vietnam Pro", sans-serif;
 }
@@ -14,17 +20,17 @@ text {
 .title{
     background-color: white;
     min-height: 33vh;
-    margin: 0% 5%;
+    margin: 0% 2.5%;
 }
 
 #header {
-    display: inline-flex;
     top: 0;
     background-color: white;
     position: fixed;
-    width: 110%;
+    width: 100%;
     display: flex; 
     align-items: center;
+    z-index: 100;
 }
 
 #transition-title {
@@ -32,16 +38,41 @@ text {
 }
 
 .header-left {
-    margin: 1% 5%;
+    margin: 1% 2.5%;
     font-size: 34px;
 }
 
 .header-right {
     position: absolute;
-    right: 10%;
+    right: 5%;
 }
 
 .header-right > h2  {
     font-size: 24px;
     margin: 0px 0px !important;
+}
+
+.parent {
+    position: relative;
+}
+
+.left {
+    width: 30%;
+}
+
+.right {
+    right: 0%;
+    width: 40%;
+}
+
+.tree-map {
+    padding: 10% 5% 0% 0%;
+}
+
+.experience {
+    visibility: hidden;
+}
+
+tr {
+    border-bottom: none;
 }

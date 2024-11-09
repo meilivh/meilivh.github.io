@@ -1,0 +1,17 @@
+[
+    { "id": 0, "name": "Python", "type": "Programming Language" },
+    { "id": 1, "name": "JavaScript", "type": "Programming Language" },
+    { "id": 2, "name": "JupyterLab", "type": "Tool" },
+    { "id": 3, "name": "Tableau", "type": "Tool" },
+    { "id": 4, "name": "D3.js", "type": "Library" },
+    { "id": 5, "name": "AngularJS", "type": "Framework" },
+    { "id": 6, "name": "ReactJS", "type": "Framework" },
+    { "id": 7, "name": "PySpark", "type": "API" },
+    { "id": 8, "name": "AWS", "type": "Platform" },
+    { "id": 9, "name": "Heroku", "type": "Platform" },
+    { "id": 10, "name": "Docker", "type": "Tool" },
+    { "id": 11, "name": "Kubernetes", "type": "Tool" },
+    { "id": 12, "name": "PostgreSQL", "type": "Database" },
+    { "id": 13, "name": "MySQL", "type": "Database" },
+    { "id": 14, "name": "MongoDB", "type": "Database" }
+]
