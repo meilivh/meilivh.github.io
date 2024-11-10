@@ -73,30 +73,31 @@
 </head>
 
 <body style="margin-bottom: 2cm;">
+    <div id="header" style="visibility: hidden;">
+        <h1 class="header-left">Meili Vanegas-Hernandez</h1>
+        <div class="header-right">
+            <h2>Data Analysis • Data Visualization</h2>
+        </div>
+    </div>
+    <div id="margin-top" style="min-height: 33vh;"></div>
+    <div id="title" class="title">
+        <h1>Meili Vanegas-Hernandez</h1>
+        <h2>Data Analysis • Data Visualization</h2>
+    </div>        
+    <div class="valign-wrapper center-align" style="min-height: 33vh;display: block;">
+        <a id="transition-title" class="grey darken-4 btn-floating btn-large scale-transition scale-out">
+            <i class="large material-icons">keyboard_arrow_down</i>
+        </a>
+    </div>    
 	<main>
-        <div id="header" style="visibility: hidden;">
-            <h1 class="header-left">Meili Vanegas-Hernandez</h1>
-            <div class="header-right">
-                <h2>Data Analysis • Data Visualization</h2>
+        <div id="chapter1"></div>
+        <div id="tools">
+            <div id="charts" class="parent">
+                <div id="svg-tools" class="chart" style="top:0px;"></div>
+                <div id="svg-skills" class="chart"></div>
             </div>
-        </div>
-        <div id="margin-top" style="min-height: 33vh;">
-        </div>
-		<div id="title" class="title">
-            <h1>Meili Vanegas-Hernandez</h1>
-			<h2>Data Analysis • Data Visualization</h2>
-		</div>
-        <div class="valign-wrapper center-align" style="min-height: 33vh;display: block;">
-            <!-- <div class="center-align"> -->
-                <a id="transition-title" class="grey darken-4 btn-floating btn-large scale-transition scale-out">
-                    <i class="large material-icons">keyboard_arrow_down</i>
-                </a>
-            <!-- </div> -->
-        </div>
-        <div id="tools" class="parent">
-            <div id="svg-tools" class="left"></div>
-            <div id="svg-skills" class="left tree-map"></div>
             <div id="details-tools" class="right">
+                <div style="min-height: 33vh;"></div>
                 <table>
                     <tr id="experience-Sandbag" class="experience">
                         <td>
@@ -218,7 +219,6 @@
                 </table>
             </div>
         </div>
-        <div id="end"></div>     
 	</main>
 	<script src="/main.js"></script>
 </body>

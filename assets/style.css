@@ -8,8 +8,8 @@ body {
 }
 
 main {
-    width: 95%;
-    left: 2.5%;
+    width: 90%;
+    left: 5%;
     position: absolute;
 }
 
@@ -20,7 +20,7 @@ text {
 .title{
     background-color: white;
     min-height: 33vh;
-    margin: 0% 2.5%;
+    margin: 0% 5%;
 }
 
 #header {
@@ -31,6 +31,7 @@ text {
     display: flex; 
     align-items: center;
     z-index: 100;
+    max-height: 10vh;
 }
 
 #transition-title {
@@ -38,7 +39,7 @@ text {
 }
 
 .header-left {
-    margin: 1% 2.5%;
+    margin: 1% 5%;
     font-size: 34px;
 }
 
@@ -53,26 +54,23 @@ text {
 }
 
 .parent {
-    position: relative;
-}
-
-.left {
-    width: 30%;
+    display: flex;
 }
 
 .right {
-    right: 0%;
-    width: 40%;
+    right: 10%;
+    width: 36%;
 }
 
-.tree-map {
-    padding: 10% 5% 0% 0%;
+.chart {
+    position: absolute;
 }
 
 .experience {
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 tr {
     border-bottom: none;
+    margin: 0% 80%;
 }
