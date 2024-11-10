@@ -101,10 +101,13 @@ setTimeout(() => {
 
 const svgTools = d3
     .select("#svg-tools").append('svg')
+    .attr("width", `${chart_width}px`)
+    .attr("height", `${chart_height}px`)
+    .attr("viewBox", [-chart_width / 2, -chart_height / 2, chart_width, chart_height])
+    .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
 d3.json('data/tools.json').then(nds => {
     d3.json('data/tools_links.json').then(links => {
-        d3.select('#svg-tools').style('width', `${chart_width}px`)
         
         ForceGraph({
             svg: svgTools, 
@@ -126,40 +129,47 @@ d3.json('data/tools.json').then(nds => {
 
 const svgSkills = d3
     .select("#svg-skills").append('svg')
+    .attr("width", `${chart_width}px`)
+    .attr("height", `${chart_height}px`)
+    .attr("viewBox", [0, 0, chart_width, chart_height])
+    .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
+    .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)    
 
 d3.json('data/skills.json').then(data => {
-    // /**
-    //      * Shows experience.
-    //     */
-    // d3.json('data/experiences.json').then(experiences => {
-    //     experiences.map(experience => {
-    //         new Waypoint({
-    //             element: document.getElementById(experience.id),
-    //             handler: direction => {
-    //                 if (direction === DOWN) {
-    //                     console.log(DOWN)
-    //                     d3.select(`#${experience.id}`).style('visibility', 'visible')
+    /**
+         * Shows experience.
+        */
+    d3.json('data/experiences.json').then(experiences => {
+        experiences.map(experience => {
+            new Waypoint({
+                element: document.getElementById(experience.id),
+                handler: direction => {
+                    if (direction === DOWN) {
+                        console.log(DOWN)
+                        // d3.select(`#${experience.id}`).style('visibility', 'visible')
 
-    //                     let data = nds.map(d => Object.assign(d, { size: experience.experiences.includes(d.name)? 3: "" }))
+                        let updatedData = data.filter(d => experience.experiences.includes(d.name) || ['Origin',''].includes(d.parent))
+                        
+                        console.log('new data', updatedData)
 
-    //                     TreeMap({
-    //                         svg: svgSkills, 
-    //                         data
-    //                     }, 
-    //                     {
-    //                         width:vw*0.28, 
-    //                         height:vw*0.5 < vh*0.5 ? vw*0.5 : vh*0.5
-    //                     })
-    //                 }
-    //                 else if (direction === UP) {
-    //                     console.log(UP)
-    //                     d3.select(`#${experience.id}`).style('visibility', 'hidden')
-    //             }
-    //             },
-    //             offset: `80%`
-    //         })
-    //     })
-    // })
+                        TreeMap({
+                            svg: svgSkills, 
+                            data: updatedData
+                        }, 
+                        {
+                            width: chart_width, 
+                            height: chart_height
+                        })
+                    }
+                    else if (direction === UP) {
+                        console.log(UP)
+                        // d3.select(`#${experience.id}`).style('visibility', 'hidden')
+                }
+                },
+                offset: `80%`
+            })
+        })
+    })
 
     // /**
     //  * Hides experience.
@@ -183,18 +193,18 @@ d3.json('data/skills.json').then(data => {
     //     })
     // })
 
-    d3.select('#svg-skills').style('width', `${chart_width}px`)
-    .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
-    .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
+    // d3.select('#svg-skills').style('width', )
+    // .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
+    // .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
 
-    TreeMap({
-        svg: svgSkills, 
-        data
-    }, 
-    {
-        width: chart_width, 
-        height: chart_height
-    })
+    // TreeMap({
+    //     svg: svgSkills, 
+    //     data
+    // }, 
+    // {
+    //     width: chart_width, 
+    //     height: chart_height
+    // })
 })
 
 // /**
