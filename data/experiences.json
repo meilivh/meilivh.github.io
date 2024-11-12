@@ -1,10 +1,90 @@
 [
-    {"id":"experience-Sandbag", "name":"Sandbag", "experiences": ["Climate Policy","Analytics", "Project Management"]},
-    {"id":"experience-Lineas", "name":"Lineas", "experiences": ["Project Management","Analytics", "Logistics","Transport"]},
-    {"id":"experience-RTBF", "name":"RTBF", "experiences": ["Project Management","Analytics", "Communications"]},
-    {"id":"experience-Steer", "name":"Steer", "experiences": ["Analytics","Transport"]},
-    {"id":"experience-Dexon", "name":"Dexon", "experiences": ["Development"]},
-    {"id":"experience-TUK", "name":"TUK", "experiences": ["Research", "Logistics"]},
-    {"id":"experience-Caoba", "name":"Caoba", "experiences": ["Research"]},
-    {"id":"experience-TOMSA", "name":"TOMSA", "experiences": ["Research"]}
+    {
+        "id":"experience-sandbag",
+        "position": "Data and Policy Analyst",
+        "start":2023,
+        "end":"Present",
+        "employer": "Sandbag",
+        "website": "https://sandbag.be",
+        "skills": ["Climate Policy","Analytics", "Project Management"],
+        "tasks": [
+            "Performed quantitative analysis of EU carbon markets such as ETS and CBAM to support data-driven advocacy.",
+            "Managed and developed data flows, dashboards, and analytical tools that supported loophole identification in policies, enhancing policy analysis."
+        ]
+    },
+    {
+        "id":"experience-lineas",                
+        "position": "Business Intelligence Analyst",
+        "start":2021,
+        "end":2023,
+        "employer": "Lineas",
+        "website": "https://lineas.net/en/",
+        "skills": ["Project Management","Analytics", "Logistics","Transport"],
+        "tasks": [
+            "Translated business needs into data projects, extracting, transforming, and presenting KPIs across various organisational areas and supporting decision-making.",
+            "Provided Tableau training to creators and business partners, enhancing their ability to utilise dashboards for decision-making."
+        ]
+    },
+    {                        
+        "id": "experience-rtbf",    
+        "position": "Data Analyst",
+        "start":2020,
+        "end":2021,
+        "employer":"RTBF",
+        "website":"https://www.rtbf.be/",
+        "skills": ["Project Management","Analytics", "Communications"],
+        "tasks": ["Introduced data-driven decision-making into publishing, editorial, and marketing processes while developing a robust DataOps environment.",
+            "Participated in the creation of the recommendation system and collaborated with journalists on producing data-driven and interactive content."]
+    },    
+    {                        
+        "id": "experience-steer",
+        "position": "Consultant",
+        "start":2019,
+        "end":2020,
+        "employer":"Steer",
+        "website":"https://be.steergroup.com/",
+        "skills": ["Analytics","Transport"],
+        "tasks": ["Participated in transport model projects for various Latin American cities supporting urban planning decisions.",
+        "Developed a visual analytics tool for trip matrices decision making in transport and urbanism."]
+    },    
+    {                        
+        "id": "experience-dexon",
+        "position": "Developer",
+        "start":2019,
+        "end":2019,
+        "employer":"Dexon",
+        "website":"https://dexon.us/",
+        "skills": ["Development"],
+        "tasks": ["Participated in the project for processes automation for health public entities. Helping to extract, transform, and load (ETL) data, and visualize it in interactive dashboards."]
+    },    
+    {                        
+        "id": "experience-tuk",
+        "position": "Research Assistant",
+        "start":2017,
+        "end":2018,
+        "employer":"Computer Graphics & HCI Group at TUK",
+        "website":"https://hci.uni-kl.de/",
+        "skills": ["Research", "Logistics"],
+        "tasks": ["Designed and implemented a visual analytics tool to support failure detection in manufacturing processes."]
+    },    
+    {                        
+        "id": "experience-caoba",
+        "position": "Researcher",
+        "start":2017,
+        "end":2017,
+        "employer":"Alianza Caoba",
+        "website":"http://alianzacaoba.co",
+        "skills": ["Research"],
+        "tasks": ["Participated in a project along with the Secretary of Finance in Bogota to identify inaccurate taxpayers in real property taxes."]
+    },    
+    {                        
+        "id": "experience-tomsa",
+        "position": "Junior Researcher",
+        "start":2016,
+        "end":2016,
+        "employer":"I3S and Espace Laboratory at Sophia Antipolis",
+        "website":"https://www.i3s.unice.fr/en/",
+        "skills": ["Research"],
+        "tasks": ["Worked in the project Transport Oriented Modeling for urban denSification Analysis (TOMSA)/ECOS Nord, building a urban decision support platform, which holds a Urban Agent-Based Model (ABM) to simulate the relocation of households under a spatial and possibilistic scenario and visualize multiple scenarios."]
+    }
 ]

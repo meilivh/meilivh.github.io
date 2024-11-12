@@ -25,6 +25,9 @@ let w_h_ratio = (chart_width/chart_height <= 0.5)? HORIZONTAL : VERTICAL
 if (w_h_ratio === HORIZONTAL) {
     chart_width = vw*0.6
     chart_height = vh*0.5
+
+    d3.select('#svg-tools').attr('class', 'row')
+    d3.select('#svg-skills').attr('class', 'row')
 }
 
 console.log(w_h_ratio)
@@ -54,53 +57,52 @@ new Waypoint({
 })
 
 /**
- * Fixes network.
+ * Shows go down button.
+*/
+setTimeout(() => {
+    d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-in')
+}, 500)
+
+/**
+ * Fix/Unfix charts.
 */
 new Waypoint({
-    element: document.getElementById('tools'),
+    element: document.getElementById('charts'),
     handler: direction => {
         if (direction === DOWN) {
             console.log(DOWN, w_h_ratio)
             d3.select('#svg-tools')
                 .style('position', 'fixed')
-                .style('top', '0px')
+                .style('top', `${margin.top}px`)
 
             d3.select('#svg-skills')
                 .style('position', 'fixed')
-                .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
-                .style('left', w_h_ratio === VERTICAL? `${margin.left+chart_width}px` : `${margin.left}px`)
+                .style('top', `${w_h_ratio === VERTICAL? 0: chart_height}px`)
+                .style('left', `${margin.left + (w_h_ratio === VERTICAL? chart_width: 0)}px`)
             
-            d3.select('#details-tools')
-                .style('margin-left', `${margin.left + (w_h_ratio === VERTICAL? chart_width*2: chart_width)}px`)
         }
         else if (direction === UP) {
             console.log(UP, w_h_ratio)
             d3.select('#svg-tools')
-                .style('position', 'absolute')
-                .style('top', '0')
+                .style('position', 'unset')
+                .style('top', '')
 
             d3.select('#svg-skills')
-                .style('position', 'absolute')
-                .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
-                .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
+                .style('position', 'unset')
+                .style('left', '')
+                .style('top', '')
 
-            d3.select('#details-tools')
-                .style('margin-left', `${margin.left}px`)
         }
     },
     offset: `0%`
 })
 
 /**
- * Shows go down button.
+ * Creates tools chart.
 */
-
-setTimeout(() => {
-    d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-in')
-}, 500)
-
 const svgTools = d3
-    .select("#svg-tools").append('svg')
+    .select("#svg-tools")
+    .append('svg')
     .attr("width", `${chart_width}px`)
     .attr("height", `${chart_height}px`)
     .attr("viewBox", [-chart_width / 2, -chart_height / 2, chart_width, chart_height])
@@ -127,34 +129,62 @@ d3.json('data/tools.json').then(nds => {
     })
 })
 
+/**
+ * Creates skills chart & details.
+*/
 const svgSkills = d3
-    .select("#svg-skills").append('svg')
+    .select("#svg-skills")
+    .append('svg')
     .attr("width", `${chart_width}px`)
     .attr("height", `${chart_height}px`)
     .attr("viewBox", [0, 0, chart_width, chart_height])
     .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
-    .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)    
-
-d3.json('data/skills.json').then(data => {
-    /**
-         * Shows experience.
-        */
+    .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
+    
+    
+d3.json('data/skills.json').then(skills => {
     d3.json('data/experiences.json').then(experiences => {
+
+        let detailsDiv = d3.select('#details-experiences')
+            .selectAll('div')
+            .data(experiences)
+            .join('div')
+            .attr('class', 'experience')
+            .attr('id', d => d.id)
+            .append('div')
+
+        detailsDiv.append('p')
+            .text(d => `${d.start} - ${d.end}`)        
+
+        detailsDiv.append('p')
+            .text(d => d.position)
+
+        detailsDiv.append('a')
+            .append('p')
+            .attr('target','_blank')
+            .attr('class','link')
+            .attr('href', d => d.website)
+            .text(d => d.employer)
+
+        detailsDiv.append('ul')
+            .selectAll('li')
+            .data(d => d.tasks)
+            .join('li')
+            .text(d => d)
+
         experiences.map(experience => {
+
             new Waypoint({
                 element: document.getElementById(experience.id),
                 handler: direction => {
                     if (direction === DOWN) {
                         console.log(DOWN)
-                        // d3.select(`#${experience.id}`).style('visibility', 'visible')
 
-                        let updatedData = data.filter(d => experience.experiences.includes(d.name) || ['Origin',''].includes(d.parent))
+                        let filteredSkills = skills.filter(d => experience.skills.includes(d.name) || ['Origin',''].includes(d.parent))
                         
-                        console.log('new data', updatedData)
-
                         TreeMap({
                             svg: svgSkills, 
-                            data: updatedData
+                            data: filteredSkills
                         }, 
                         {
                             width: chart_width, 
@@ -170,41 +200,6 @@ d3.json('data/skills.json').then(data => {
             })
         })
     })
-
-    // /**
-    //  * Hides experience.
-    // */
-    // d3.json('data/experiences.json').then(experiences => {
-    //     experiences.map(experience => {
-    //         new Waypoint({
-    //             element: document.getElementById(experience.id),
-    //             handler: direction => {
-    //                 if (direction === DOWN) {
-    //                     console.log(DOWN)
-    //                     d3.select(`#${experience.id}`).style('visibility', 'hidden')
-    //                 }
-    //                 else if (direction === UP) {
-    //                     console.log(UP)
-    //                     d3.select(`#${experience.id}`).style('visibility', 'visible')
-    //             }
-    //             },
-    //             offset: `20%`
-    //         })
-    //     })
-    // })
-
-    // d3.select('#svg-skills').style('width', )
-    // .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
-    // .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
-
-    // TreeMap({
-    //     svg: svgSkills, 
-    //     data
-    // }, 
-    // {
-    //     width: chart_width, 
-    //     height: chart_height
-    // })
 })
 
 // /**
