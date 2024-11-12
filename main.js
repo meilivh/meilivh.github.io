@@ -41,17 +41,15 @@ new Waypoint({
     element: document.getElementById('chapter1'),
     handler: direction => {
         if (direction === DOWN) {
-            console.log(DOWN, 'Title')
             d3.select('#title').style('visibility', 'hidden')
             d3.select('#header').style('visibility', 'visible')
             d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-out')
         }
         else if (direction === UP) {
-            console.log(UP, 'Title')
             d3.select('#title').style('visibility', 'visible')
             d3.select('#header').style('visibility', 'hidden')
-        d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-in')
-    }
+            d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-in')
+        }
     },
     offset: `66%`
 })
@@ -71,30 +69,20 @@ new Waypoint({
     handler: direction => {
         if (direction === DOWN) {
             console.log(DOWN, w_h_ratio)
-            d3.select('#svg-tools')
+            d3.select('#right-wrapper')
                 .style('position', 'fixed')
                 .style('top', `${margin.top}px`)
-
-            d3.select('#svg-skills')
-                .style('position', 'fixed')
-                .style('top', `${w_h_ratio === VERTICAL? 0: chart_height}px`)
-                .style('left', `${margin.left + (w_h_ratio === VERTICAL? chart_width: 0)}px`)
+                .style('left', `${margin.left*1.45}px`)
             
         }
         else if (direction === UP) {
-            console.log(UP, w_h_ratio)
-            d3.select('#svg-tools')
+            d3.select('#right-wrapper')
                 .style('position', 'unset')
-                .style('top', '')
-
-            d3.select('#svg-skills')
-                .style('position', 'unset')
+                .style('top', '')            
                 .style('left', '')
-                .style('top', '')
-
         }
     },
-    offset: `0%`
+    offset: `${margin.top}px`
 })
 
 /**
@@ -138,11 +126,16 @@ const svgSkills = d3
     .attr("width", `${chart_width}px`)
     .attr("height", `${chart_height}px`)
     .attr("viewBox", [0, 0, chart_width, chart_height])
-    .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
-    .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
-    
     
 d3.json('data/skills.json').then(skills => {
+    TreeMap({
+        svg: svgSkills, 
+        data: skills
+    },{
+        width: chart_width,
+        height: chart_height
+    })
+
     d3.json('data/experiences.json').then(experiences => {
 
         let detailsDiv = d3.select('#details-experiences')
@@ -172,7 +165,7 @@ d3.json('data/skills.json').then(skills => {
             .join('li')
             .text(d => d)
 
-        experiences.map(experience => {
+        experiences.map((experience, i) => {
 
             new Waypoint({
                 element: document.getElementById(experience.id),
@@ -181,19 +174,31 @@ d3.json('data/skills.json').then(skills => {
                         console.log(DOWN)
 
                         let filteredSkills = skills.filter(d => experience.skills.includes(d.name) || ['Origin',''].includes(d.parent))
-                        
+                    
                         TreeMap({
                             svg: svgSkills, 
                             data: filteredSkills
-                        }, 
-                        {
-                            width: chart_width, 
+                        },{
+                            width: chart_width,
                             height: chart_height
                         })
+
                     }
                     else if (direction === UP) {
-                        console.log(UP)
-                        // d3.select(`#${experience.id}`).style('visibility', 'hidden')
+                        
+                        let filteredSkills = skills
+
+                        if (i > 0)
+                            filteredSkills = skills.filter(d => experiences[i-1].skills.includes(d.name) || ['Origin',''].includes(d.parent))
+                    
+                        TreeMap({
+                            svg: svgSkills, 
+                            data: filteredSkills
+                        },{
+                            width: chart_width,
+                            height: chart_height
+                        })
+
                 }
                 },
                 offset: `80%`

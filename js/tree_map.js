@@ -22,10 +22,14 @@ function TreeMap(
         .padding(4)
         (root)
 
+    let leaves = root.leaves().filter(d => d.data.size)
+
+    console.log('leaves',leaves)
+
     // use this information to add rectangles:
     svg
     .selectAll("rect")
-    .data(root.leaves())
+    .data(leaves)
     .join(
         enter => enter.append("rect")
             .attr("fill", "green")
@@ -40,14 +44,19 @@ function TreeMap(
             .attr('y', function (d) { return d.y0; })
             .attr('width', function (d) { return d.x1 - d.x0; })
             .attr('height', function (d) { return d.y1 - d.y0; })),
-        update => update.attr("fill", "blue"),
+        update => update.attr("fill", "blue")
+            .attr('x', function (d) { return d.x0; })
+            .attr('y', function (d) { return d.y0; })
+            .call(update => update.transition(t)
+            .attr('width', function (d) { return d.x1 - d.x0; })
+            .attr('height', function (d) { return d.y1 - d.y0; })),
         exit => exit.remove()
     )
 
     // and to add the text labels
     svg
     .selectAll("text")
-    .data(root.leaves())
+    .data(leaves)
     .join(
         enter => enter.append("text")
             .attr("color", "green")
@@ -56,7 +65,12 @@ function TreeMap(
             .text(function(d){ return d.data.name})
             .attr("font-size", "15px")
             .attr("fill", "white"),
-        update => update.attr("color", "blue"),
+        update => update.attr("color", "blue")
+            .attr("x", function(d){ return d.x0+10}) 
+            .attr("y", function(d){ return d.y0+20})
+            .text(function(d){ return d.data.name})
+            .attr("font-size", "15px")
+            .attr("fill", "white"),
         exit => exit.remove()
     )
   
