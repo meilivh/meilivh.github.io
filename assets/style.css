@@ -53,24 +53,13 @@ text {
     margin: 0px 0px !important;
 }
 
-.parent {
-    display: flex;
-}
-
-.right {
-    right: 10%;
-    width: 36%;
-}
-
-.chart {
-    position: absolute;
+.link {
+    font-style: italic;
+    padding-left: 0cm;
 }
 
 .experience {
-    /* visibility: hidden; */
-}
-
-tr {
-    border-bottom: none;
-    margin: 0% 80%;
+    min-height: 100vh !important;
+    display: flex; 
+    align-items: center;
 }

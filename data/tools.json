@@ -13,5 +13,6 @@
     { "id": 11, "name": "Kubernetes", "type": "Tool" },
     { "id": 12, "name": "PostgreSQL", "type": "Database" },
     { "id": 13, "name": "MySQL", "type": "Database" },
-    { "id": 14, "name": "MongoDB", "type": "Database" }
+    { "id": 14, "name": "MongoDB", "type": "Database" },
+    { "id": 15, "name": "Airflow", "type": "Framework" }
 ]

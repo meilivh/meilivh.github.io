@@ -25,6 +25,9 @@ let w_h_ratio = (chart_width/chart_height <= 0.5)? HORIZONTAL : VERTICAL
 if (w_h_ratio === HORIZONTAL) {
     chart_width = vw*0.6
     chart_height = vh*0.5
+
+    d3.select('#svg-tools').attr('class', 'row')
+    d3.select('#svg-skills').attr('class', 'row')
 }
 
 console.log(w_h_ratio)
@@ -38,162 +41,198 @@ new Waypoint({
     element: document.getElementById('chapter1'),
     handler: direction => {
         if (direction === DOWN) {
-            console.log(DOWN, 'Title')
             d3.select('#title').style('visibility', 'hidden')
             d3.select('#header').style('visibility', 'visible')
             d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-out')
         }
         else if (direction === UP) {
-            console.log(UP, 'Title')
             d3.select('#title').style('visibility', 'visible')
             d3.select('#header').style('visibility', 'hidden')
-        d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-in')
-    }
+            d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-in')
+        }
     },
     offset: `66%`
 })
 
 /**
- * Fixes network.
-*/
-new Waypoint({
-    element: document.getElementById('tools'),
-    handler: direction => {
-        if (direction === DOWN) {
-            console.log(DOWN, w_h_ratio)
-            d3.select('#svg-tools')
-                .style('position', 'fixed')
-                .style('top', '0px')
-
-            d3.select('#svg-skills')
-                .style('position', 'fixed')
-                .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
-                .style('left', w_h_ratio === VERTICAL? `${margin.left+chart_width}px` : `${margin.left}px`)
-            
-            d3.select('#details-tools')
-                .style('margin-left', `${margin.left + (w_h_ratio === VERTICAL? chart_width*2: chart_width)}px`)
-        }
-        else if (direction === UP) {
-            console.log(UP, w_h_ratio)
-            d3.select('#svg-tools')
-                .style('position', 'absolute')
-                .style('top', '0')
-
-            d3.select('#svg-skills')
-                .style('position', 'absolute')
-                .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
-                .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
-
-            d3.select('#details-tools')
-                .style('margin-left', `${margin.left}px`)
-        }
-    },
-    offset: `0%`
-})
-
-/**
  * Shows go down button.
 */
-
 setTimeout(() => {
     d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-in')
 }, 500)
 
+/**
+ * Fix/Unfix charts.
+*/
+new Waypoint({
+    element: document.getElementById('charts'),
+    handler: direction => {
+        if (direction === DOWN) {
+            console.log(DOWN, w_h_ratio)
+            d3.select('#right-wrapper')
+                .style('position', 'fixed')
+                .style('top', `${margin.top}px`)
+                .style('left', `${margin.left*1.45}px`)
+            
+        }
+        else if (direction === UP) {
+            d3.select('#right-wrapper')
+                .style('position', 'unset')
+                .style('top', '')            
+                .style('left', '')
+        }
+    },
+    offset: `${margin.top}px`
+})
+
+/**
+ * Creates tools chart.
+*/
 const svgTools = d3
-    .select("#svg-tools").append('svg')
+    .select("#svg-tools")
+    .append('svg')
+    .attr("width", `${chart_width}px`)
+    .attr("height", `${chart_height}px`)
+    .attr("viewBox", [-chart_width / 2, -chart_height / 2, chart_width, chart_height])
+    .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
 d3.json('data/tools.json').then(nds => {
     d3.json('data/tools_links.json').then(links => {
-        d3.select('#svg-tools').style('width', `${chart_width}px`)
         
-        ForceGraph({
-            svg: svgTools, 
-            nds, 
-            links
-        }, 
-        {
-            width: chart_width, 
-            height: chart_height,
-            linkStrokeOpacity:0,
-            nodeGroup: d => d.type,
-            nodeTitle: d => `${d.name}\n${d.type}`,
-            nodeStrength: -300,
-            nodeRadius: 30,
-            nodeText: d => d.name
+        const color = d3.scaleOrdinal([... new Set(nds.map(d => d.type))], d3.schemeTableau10);
+
+        /**
+         * Creates skills chart & details.
+        */
+        const svgSkills = d3
+            .select("#svg-skills")
+            .append('svg')
+            .attr("width", `${chart_width}px`)
+            .attr("height", `${chart_height}px`)
+            .attr("viewBox", [0, 0, chart_width, chart_height])
+            
+        d3.json('data/skills.json').then(skills => {
+            TreeMap({
+                svg: svgSkills, 
+                data: skills
+            },{
+                width: chart_width,
+                height: chart_height
+            })
+
+            d3.json('data/experiences.json').then(experiences => {
+
+                let detailsDiv = d3.select('#details-experiences')
+                    .selectAll('div')
+                    .data(experiences)
+                    .join('div')
+                    .attr('class', 'experience')
+                    .attr('id', d => d.id)
+                    .append('div')
+
+                detailsDiv.append('p')
+                    .text(d => `${d.start} - ${d.end}`)        
+
+                detailsDiv.append('p')
+                    .text(d => d.position)
+
+                detailsDiv.append('a')
+                    .append('p')
+                    .attr('target','_blank')
+                    .attr('class','link')
+                    .attr('href', d => d.website)
+                    .text(d => d.employer)
+
+                detailsDiv.append('ul')
+                    .selectAll('li')
+                    .data(d => d.tasks)
+                    .join('li')
+                    .text(d => d)
+
+                experiences.map((experience, i) => {
+
+                    new Waypoint({
+                        element: document.getElementById(experience.id),
+                        handler: direction => {
+                            if (direction === DOWN) {
+                                console.log(DOWN)
+
+                                let filteredSkills = skills.filter(d => experience.skills.includes(d.name) || ['Origin',''].includes(d.parent))
+                            
+                                TreeMap({
+                                    svg: svgSkills, 
+                                    data: filteredSkills
+                                },{
+                                    width: chart_width,
+                                    height: chart_height
+                                })
+
+                                let filteredNodes = nds.filter(d => experience.tools.includes(d.name))
+                                let filteredLinks = links.filter(d => filteredNodes.map(d => d.id).includes(d.id))
+                                
+                                ForceGraph({
+                                    svg: svgTools, 
+                                    nds: filteredNodes, 
+                                    links: filteredLinks
+                                }, 
+                                {
+                                    nodeGroup: 'type',
+                                    width: chart_width, 
+                                    height: chart_height,
+                                    linkStrokeOpacity: 0,
+                                    nodeTitle: d => `${d.name}\n${d.type}`,
+                                    nodeStrength: -100,
+                                    nodeRadius: 30,
+                                    nodeText: d => d.name,
+                                    color
+                                })
+
+                            }
+                            else if (direction === UP) {
+                                
+                                let filteredSkills = skills
+                                let filteredNodes = nds
+                                let filteredLinks = links
+
+                                if (i > 0) {
+                                    filteredSkills = skills.filter(d => experiences[i-1].skills.includes(d.name) || ['Origin',''].includes(d.parent))
+                                    filteredNodes = nds.filter(d => experiences[i-1].tools.includes(d.name))
+                                    filteredLinks = links.filter(d => filteredNodes.map(d => d.id).includes(d.id))
+                                }
+                 
+                                TreeMap({
+                                    svg: svgSkills, 
+                                    data: filteredSkills
+                                },{
+                                    width: chart_width,
+                                    height: chart_height
+                                })
+
+              
+                                ForceGraph({
+                                    svg: svgTools, 
+                                    nds: filteredNodes, 
+                                    links: filteredLinks
+                                }, 
+                                {
+                                    nodeGroup: 'type',
+                                    width: chart_width, 
+                                    height: chart_height,
+                                    linkStrokeOpacity: 0,
+                                    nodeTitle: d => `${d.name}\n${d.type}`,
+                                    nodeStrength: -100,
+                                    nodeRadius: 30,
+                                    nodeText: d => d.name,
+                                    color
+                                })                                
+
+                        }
+                        },
+                        offset: `80%`
+                    })
+                })
+            })
         })
-    })
-})
-
-const svgSkills = d3
-    .select("#svg-skills").append('svg')
-
-d3.json('data/skills.json').then(data => {
-    // /**
-    //      * Shows experience.
-    //     */
-    // d3.json('data/experiences.json').then(experiences => {
-    //     experiences.map(experience => {
-    //         new Waypoint({
-    //             element: document.getElementById(experience.id),
-    //             handler: direction => {
-    //                 if (direction === DOWN) {
-    //                     console.log(DOWN)
-    //                     d3.select(`#${experience.id}`).style('visibility', 'visible')
-
-    //                     let data = nds.map(d => Object.assign(d, { size: experience.experiences.includes(d.name)? 3: "" }))
-
-    //                     TreeMap({
-    //                         svg: svgSkills, 
-    //                         data
-    //                     }, 
-    //                     {
-    //                         width:vw*0.28, 
-    //                         height:vw*0.5 < vh*0.5 ? vw*0.5 : vh*0.5
-    //                     })
-    //                 }
-    //                 else if (direction === UP) {
-    //                     console.log(UP)
-    //                     d3.select(`#${experience.id}`).style('visibility', 'hidden')
-    //             }
-    //             },
-    //             offset: `80%`
-    //         })
-    //     })
-    // })
-
-    // /**
-    //  * Hides experience.
-    // */
-    // d3.json('data/experiences.json').then(experiences => {
-    //     experiences.map(experience => {
-    //         new Waypoint({
-    //             element: document.getElementById(experience.id),
-    //             handler: direction => {
-    //                 if (direction === DOWN) {
-    //                     console.log(DOWN)
-    //                     d3.select(`#${experience.id}`).style('visibility', 'hidden')
-    //                 }
-    //                 else if (direction === UP) {
-    //                     console.log(UP)
-    //                     d3.select(`#${experience.id}`).style('visibility', 'visible')
-    //             }
-    //             },
-    //             offset: `20%`
-    //         })
-    //     })
-    // })
-
-    d3.select('#svg-skills').style('width', `${chart_width}px`)
-    .style('left', `${(w_h_ratio === VERTICAL? chart_width: 0)}px`)
-    .style('top', `${(margin.top + (w_h_ratio === VERTICAL? 0: chart_height))}px`)
-
-    TreeMap({
-        svg: svgSkills, 
-        data
-    }, 
-    {
-        width: chart_width, 
-        height: chart_height
     })
 })
 
