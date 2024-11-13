@@ -15,7 +15,7 @@ const margin = {
 }
 
 const vw = original_vw*0.9
-const vh = original_vh*0.85
+const vh = original_vh*0.8
 
 let chart_width = vw*0.3
 let chart_height = vh
@@ -72,7 +72,6 @@ new Waypoint({
             d3.select('#right-wrapper')
                 .style('position', 'fixed')
                 .style('top', `${margin.top}px`)
-                .style('left', `${margin.left*1.45}px`)
             
         }
         else if (direction === UP) {
@@ -99,25 +98,28 @@ const svgTools = d3
 d3.json('data/tools.json').then(nds => {
     d3.json('data/tools_links.json').then(links => {
         
-        const color = d3.scaleOrdinal([... new Set(nds.map(d => d.type))], d3.schemeTableau10);
+        const color_graph = d3.scaleOrdinal([... new Set(nds.map(d => d.type))], colors_7);
 
         /**
          * Creates skills chart & details.
         */
         const svgSkills = d3
             .select("#svg-skills")
+            .style('text-align', 'center')
             .append('svg')
-            .attr("width", `${chart_width}px`)
-            .attr("height", `${chart_height}px`)
-            .attr("viewBox", [0, 0, chart_width, chart_height])
+            .attr("width", `${chart_width*0.9}px`)
+            .attr("height", `${chart_height*0.7}px`)
+            .attr("viewBox", [0, 0, chart_width*0.9, chart_height*0.7])
             
         d3.json('data/skills.json').then(skills => {
+            const color_tree = d3.scaleOrdinal([... new Set(skills.map(d => d.size? d.parent: '').filter(d => d !== ''))], colors_2);
             TreeMap({
                 svg: svgSkills, 
                 data: skills
             },{
-                width: chart_width,
-                height: chart_height
+                width: chart_width*0.9,
+                height: chart_height*0.7,
+                color: color_tree
             })
 
             d3.json('data/experiences.json').then(experiences => {
@@ -163,8 +165,9 @@ d3.json('data/tools.json').then(nds => {
                                     svg: svgSkills, 
                                     data: filteredSkills
                                 },{
-                                    width: chart_width,
-                                    height: chart_height
+                                    width: chart_width*0.9,
+                                    height: chart_height*0.7,
+                                    color: color_tree
                                 })
 
                                 let filteredNodes = nds.filter(d => experience.tools.includes(d.name))
@@ -184,7 +187,7 @@ d3.json('data/tools.json').then(nds => {
                                     nodeStrength: -100,
                                     nodeRadius: 30,
                                     nodeText: d => d.name,
-                                    color
+                                    color: color_graph
                                 })
 
                             }
@@ -204,8 +207,9 @@ d3.json('data/tools.json').then(nds => {
                                     svg: svgSkills, 
                                     data: filteredSkills
                                 },{
-                                    width: chart_width,
-                                    height: chart_height
+                                    width: chart_width*0.9,
+                                    height: chart_height*0.7,
+                                    color: color_tree
                                 })
 
               
@@ -223,61 +227,39 @@ d3.json('data/tools.json').then(nds => {
                                     nodeStrength: -100,
                                     nodeRadius: 30,
                                     nodeText: d => d.name,
-                                    color
+                                    color: color_graph
                                 })                                
 
                         }
                         },
-                        offset: `80%`
+                        offset: `50%`
                     })
                 })
+                
+                /**
+                 * Fix/Unfix charts.
+                */
+
+                new Waypoint({
+                    element: document.getElementById(experiences[experiences.length-1].id),
+                    handler: direction => {
+                        if (direction === DOWN) {
+                            console.log(DOWN, w_h_ratio)
+                            d3.select('#right-wrapper')
+                                .style('position', 'unset')
+                                .style('top', '')            
+                                .style('left', '')
+                        }
+                        else if (direction === UP) {
+                            d3.select('#right-wrapper')
+                                .style('position', 'fixed')
+                                .style('top', `${margin.top}px`)
+                        }
+                    },
+                    offset: '-10%'
+                })
+
             })
         })
     })
 })
-
-// /**
-//  * Shows experience.
-// */
-// d3.json('data/experiences.json').then(experiences => {
-//     experiences.map(experience => {
-//         new Waypoint({
-//             element: document.getElementById(experience.id),
-//             handler: direction => {
-//                 if (direction === DOWN) {
-//                     console.log(DOWN)
-//                     d3.select(`#${experience.id}`).style('visibility', 'visible')
-//                 }
-//                 else if (direction === UP) {
-//                     console.log(UP)
-//                     d3.select(`#${experience.id}`).style('visibility', 'hidden')
-//             }
-//             },
-//             offset: `80%`
-//         })
-//     })
-// })
-
-// /**
-//  * Hides experience.
-// */
-// d3.json('data/experiences.json').then(experiences => {
-//     experiences.map(experience => {
-//         new Waypoint({
-//             element: document.getElementById(experience.id),
-//             handler: direction => {
-//                 if (direction === DOWN) {
-//                     console.log(DOWN)
-//                     d3.select(`#${experience.id}`).style('visibility', 'hidden')
-//                 }
-//                 else if (direction === UP) {
-//                     console.log(UP)
-//                     d3.select(`#${experience.id}`).style('visibility', 'visible')
-//             }
-//             },
-//             offset: `10%`
-//         })
-//     })
-// })
-
-

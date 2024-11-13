@@ -7,7 +7,7 @@
         "employer": "Sandbag",
         "website": "https://sandbag.be",
         "tools": ["Python","Heroku","JupyterLab"],
-        "skills": ["Climate Policy","Analytics", "Project Management"],
+        "skills": ["Climate Policy","Analytics","Data Visualization", "Project Management"],
         "tasks": [
             "Performed quantitative analysis of EU carbon markets such as ETS and CBAM to support data-driven advocacy.",
             "Managed and developed data flows, dashboards, and analytical tools that supported loophole identification in policies, enhancing policy analysis."
@@ -21,7 +21,7 @@
         "employer": "Lineas",
         "website": "https://lineas.net/en/",
         "tools": ["Python","AWS","JupyterLab","PySpark","Tableau","MySQL","PostgreSQL"],
-        "skills": ["Project Management","Analytics", "Logistics","Transport"],
+        "skills": ["Project Management","Analytics", "Logistics","Transport","Data Visualization"],
         "tasks": [
             "Translated business needs into data projects, extracting, transforming, and presenting KPIs across various organisational areas and supporting decision-making.",
             "Provided Tableau training to creators and business partners, enhancing their ability to utilise dashboards for decision-making."
@@ -35,7 +35,7 @@
         "employer":"RTBF",
         "website":"https://www.rtbf.be/",
         "tools": ["D3.js","JavaScript","Python","AWS","JupyterLab","Tableau","MySQL","PostgreSQL","Docker","Kubernetes","MongoDB"],
-        "skills": ["Project Management","Analytics", "Communications"],
+        "skills": ["Project Management","Analytics", "TV & Radio","CRM","Data Journalism","Data Engineering","Data Visualization"],
         "tasks": ["Introduced data-driven decision-making into publishing, editorial, and marketing processes while developing a robust DataOps environment.",
             "Participated in the creation of the recommendation system and collaborated with journalists on producing data-driven and interactive content."]
     },    
@@ -47,7 +47,7 @@
         "employer":"Steer",
         "website":"https://be.steergroup.com/",
         "tools": ["D3.js","JavaScript","Python","AWS","JupyterLab","AngularJS","ReactJS","PostgreSQL","MySQL"],
-        "skills": ["Analytics","Transport"],
+        "skills": ["Analytics","Transport","Urban Mobility","Infrastructure","Data Visualization"],
         "tasks": ["Participated in transport model projects for various Latin American cities supporting urban planning decisions.",
         "Developed a visual analytics tool for trip matrices decision making in transport and urbanism."]
     },    
