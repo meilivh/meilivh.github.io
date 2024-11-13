@@ -99,109 +99,138 @@ const svgTools = d3
 d3.json('data/tools.json').then(nds => {
     d3.json('data/tools_links.json').then(links => {
         
-        ForceGraph({
-            svg: svgTools, 
-            nds, 
-            links
-        }, 
-        {
-            width: chart_width, 
-            height: chart_height,
-            linkStrokeOpacity:0,
-            nodeGroup: d => d.type,
-            nodeTitle: d => `${d.name}\n${d.type}`,
-            nodeStrength: -300,
-            nodeRadius: 30,
-            nodeText: d => d.name
-        })
-    })
-})
+        const color = d3.scaleOrdinal([... new Set(nds.map(d => d.type))], d3.schemeTableau10);
 
-/**
- * Creates skills chart & details.
-*/
-const svgSkills = d3
-    .select("#svg-skills")
-    .append('svg')
-    .attr("width", `${chart_width}px`)
-    .attr("height", `${chart_height}px`)
-    .attr("viewBox", [0, 0, chart_width, chart_height])
-    
-d3.json('data/skills.json').then(skills => {
-    TreeMap({
-        svg: svgSkills, 
-        data: skills
-    },{
-        width: chart_width,
-        height: chart_height
-    })
+        /**
+         * Creates skills chart & details.
+        */
+        const svgSkills = d3
+            .select("#svg-skills")
+            .append('svg')
+            .attr("width", `${chart_width}px`)
+            .attr("height", `${chart_height}px`)
+            .attr("viewBox", [0, 0, chart_width, chart_height])
+            
+        d3.json('data/skills.json').then(skills => {
+            TreeMap({
+                svg: svgSkills, 
+                data: skills
+            },{
+                width: chart_width,
+                height: chart_height
+            })
 
-    d3.json('data/experiences.json').then(experiences => {
+            d3.json('data/experiences.json').then(experiences => {
 
-        let detailsDiv = d3.select('#details-experiences')
-            .selectAll('div')
-            .data(experiences)
-            .join('div')
-            .attr('class', 'experience')
-            .attr('id', d => d.id)
-            .append('div')
+                let detailsDiv = d3.select('#details-experiences')
+                    .selectAll('div')
+                    .data(experiences)
+                    .join('div')
+                    .attr('class', 'experience')
+                    .attr('id', d => d.id)
+                    .append('div')
 
-        detailsDiv.append('p')
-            .text(d => `${d.start} - ${d.end}`)        
+                detailsDiv.append('p')
+                    .text(d => `${d.start} - ${d.end}`)        
 
-        detailsDiv.append('p')
-            .text(d => d.position)
+                detailsDiv.append('p')
+                    .text(d => d.position)
 
-        detailsDiv.append('a')
-            .append('p')
-            .attr('target','_blank')
-            .attr('class','link')
-            .attr('href', d => d.website)
-            .text(d => d.employer)
+                detailsDiv.append('a')
+                    .append('p')
+                    .attr('target','_blank')
+                    .attr('class','link')
+                    .attr('href', d => d.website)
+                    .text(d => d.employer)
 
-        detailsDiv.append('ul')
-            .selectAll('li')
-            .data(d => d.tasks)
-            .join('li')
-            .text(d => d)
+                detailsDiv.append('ul')
+                    .selectAll('li')
+                    .data(d => d.tasks)
+                    .join('li')
+                    .text(d => d)
 
-        experiences.map((experience, i) => {
+                experiences.map((experience, i) => {
 
-            new Waypoint({
-                element: document.getElementById(experience.id),
-                handler: direction => {
-                    if (direction === DOWN) {
-                        console.log(DOWN)
+                    new Waypoint({
+                        element: document.getElementById(experience.id),
+                        handler: direction => {
+                            if (direction === DOWN) {
+                                console.log(DOWN)
 
-                        let filteredSkills = skills.filter(d => experience.skills.includes(d.name) || ['Origin',''].includes(d.parent))
-                    
-                        TreeMap({
-                            svg: svgSkills, 
-                            data: filteredSkills
-                        },{
-                            width: chart_width,
-                            height: chart_height
-                        })
+                                let filteredSkills = skills.filter(d => experience.skills.includes(d.name) || ['Origin',''].includes(d.parent))
+                            
+                                TreeMap({
+                                    svg: svgSkills, 
+                                    data: filteredSkills
+                                },{
+                                    width: chart_width,
+                                    height: chart_height
+                                })
 
-                    }
-                    else if (direction === UP) {
-                        
-                        let filteredSkills = skills
+                                let filteredNodes = nds.filter(d => experience.tools.includes(d.name))
+                                let filteredLinks = links.filter(d => filteredNodes.map(d => d.id).includes(d.id))
+                                
+                                ForceGraph({
+                                    svg: svgTools, 
+                                    nds: filteredNodes, 
+                                    links: filteredLinks
+                                }, 
+                                {
+                                    nodeGroup: 'type',
+                                    width: chart_width, 
+                                    height: chart_height,
+                                    linkStrokeOpacity: 0,
+                                    nodeTitle: d => `${d.name}\n${d.type}`,
+                                    nodeStrength: -100,
+                                    nodeRadius: 30,
+                                    nodeText: d => d.name,
+                                    color
+                                })
 
-                        if (i > 0)
-                            filteredSkills = skills.filter(d => experiences[i-1].skills.includes(d.name) || ['Origin',''].includes(d.parent))
-                    
-                        TreeMap({
-                            svg: svgSkills, 
-                            data: filteredSkills
-                        },{
-                            width: chart_width,
-                            height: chart_height
-                        })
+                            }
+                            else if (direction === UP) {
+                                
+                                let filteredSkills = skills
+                                let filteredNodes = nds
+                                let filteredLinks = links
 
-                }
-                },
-                offset: `80%`
+                                if (i > 0) {
+                                    filteredSkills = skills.filter(d => experiences[i-1].skills.includes(d.name) || ['Origin',''].includes(d.parent))
+                                    filteredNodes = nds.filter(d => experiences[i-1].tools.includes(d.name))
+                                    filteredLinks = links.filter(d => filteredNodes.map(d => d.id).includes(d.id))
+                                }
+                 
+                                TreeMap({
+                                    svg: svgSkills, 
+                                    data: filteredSkills
+                                },{
+                                    width: chart_width,
+                                    height: chart_height
+                                })
+
+              
+                                ForceGraph({
+                                    svg: svgTools, 
+                                    nds: filteredNodes, 
+                                    links: filteredLinks
+                                }, 
+                                {
+                                    nodeGroup: 'type',
+                                    width: chart_width, 
+                                    height: chart_height,
+                                    linkStrokeOpacity: 0,
+                                    nodeTitle: d => `${d.name}\n${d.type}`,
+                                    nodeStrength: -100,
+                                    nodeRadius: 30,
+                                    nodeText: d => d.name,
+                                    color
+                                })                                
+
+                        }
+                        },
+                        offset: `80%`
+                    })
+                })
             })
         })
     })

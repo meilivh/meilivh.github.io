@@ -24,8 +24,6 @@ function TreeMap(
 
     let leaves = root.leaves().filter(d => d.data.size)
 
-    console.log('leaves',leaves)
-
     // use this information to add rectangles:
     svg
     .selectAll("rect")

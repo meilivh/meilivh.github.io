@@ -6,6 +6,7 @@
         "end":"Present",
         "employer": "Sandbag",
         "website": "https://sandbag.be",
+        "tools": ["Python","Heroku","JupyterLab"],
         "skills": ["Climate Policy","Analytics", "Project Management"],
         "tasks": [
             "Performed quantitative analysis of EU carbon markets such as ETS and CBAM to support data-driven advocacy.",
@@ -19,6 +20,7 @@
         "end":2023,
         "employer": "Lineas",
         "website": "https://lineas.net/en/",
+        "tools": ["Python","AWS","JupyterLab","PySpark","Tableau","MySQL","PostgreSQL"],
         "skills": ["Project Management","Analytics", "Logistics","Transport"],
         "tasks": [
             "Translated business needs into data projects, extracting, transforming, and presenting KPIs across various organisational areas and supporting decision-making.",
@@ -32,6 +34,7 @@
         "end":2021,
         "employer":"RTBF",
         "website":"https://www.rtbf.be/",
+        "tools": ["D3.js","JavaScript","Python","AWS","JupyterLab","Tableau","MySQL","PostgreSQL","Docker","Kubernetes","MongoDB"],
         "skills": ["Project Management","Analytics", "Communications"],
         "tasks": ["Introduced data-driven decision-making into publishing, editorial, and marketing processes while developing a robust DataOps environment.",
             "Participated in the creation of the recommendation system and collaborated with journalists on producing data-driven and interactive content."]
@@ -43,6 +46,7 @@
         "end":2020,
         "employer":"Steer",
         "website":"https://be.steergroup.com/",
+        "tools": ["D3.js","JavaScript","Python","AWS","JupyterLab","AngularJS","ReactJS","PostgreSQL","MySQL"],
         "skills": ["Analytics","Transport"],
         "tasks": ["Participated in transport model projects for various Latin American cities supporting urban planning decisions.",
         "Developed a visual analytics tool for trip matrices decision making in transport and urbanism."]
@@ -54,6 +58,7 @@
         "end":2019,
         "employer":"Dexon",
         "website":"https://dexon.us/",
+        "tools": ["D3.js","JavaScript","Python","AWS","AngularJS","ReactJS","PostgreSQL","MySQL"],
         "skills": ["Development"],
         "tasks": ["Participated in the project for processes automation for health public entities. Helping to extract, transform, and load (ETL) data, and visualize it in interactive dashboards."]
     },    
@@ -64,6 +69,7 @@
         "end":2018,
         "employer":"Computer Graphics & HCI Group at TUK",
         "website":"https://hci.uni-kl.de/",
+        "tools": ["D3.js","JavaScript","Python","AWS","AngularJS","MySQL"],
         "skills": ["Research", "Logistics"],
         "tasks": ["Designed and implemented a visual analytics tool to support failure detection in manufacturing processes."]
     },    
@@ -74,6 +80,7 @@
         "end":2017,
         "employer":"Alianza Caoba",
         "website":"http://alianzacaoba.co",
+        "tools": ["D3.js","JavaScript","Python","AWS","MySQL","Docker"],
         "skills": ["Research"],
         "tasks": ["Participated in a project along with the Secretary of Finance in Bogota to identify inaccurate taxpayers in real property taxes."]
     },    
@@ -84,6 +91,7 @@
         "end":2016,
         "employer":"I3S and Espace Laboratory at Sophia Antipolis",
         "website":"https://www.i3s.unice.fr/en/",
+        "tools": ["D3.js","JavaScript","AWS","MySQL"],
         "skills": ["Research"],
         "tasks": ["Worked in the project Transport Oriented Modeling for urban denSification Analysis (TOMSA)/ECOS Nord, building a urban decision support platform, which holds a Urban Agent-Based Model (ABM) to simulate the relocation of households under a spatial and possibilistic scenario and visualize multiple scenarios."]
     }
