@@ -84,6 +84,7 @@ function ForceGraph(
         .attr("text-anchor", "middle")
         .call(enter => enter.transition(t)
         .style("font-size", "12px")
+        .attr("fill", d => color && nodeGroup && color(d.group) === '#025259' ? '#F4E2DE': 'black')
         .text(nodeText)
       ),
       update => update
@@ -91,14 +92,13 @@ function ForceGraph(
         .style("font-size", "0px")
         .call(enter => enter.transition(t)
         .style("font-size", "12px")
+        .attr("fill", d => color && nodeGroup && color(d.group) === '#025259' ? '#F4E2DE': 'black')
         .text(nodeText)
       ),        
       exit => exit.remove()        
     );
 
   node.call(drag(simulation));
-
-  node.append("title").text(({ index: i }) => T? T[i]: '')        
 
   if (invalidation != null) invalidation.then(() => simulation.stop());
 
