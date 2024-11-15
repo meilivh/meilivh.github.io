@@ -6,11 +6,25 @@
         "end":"Present",
         "employer": "Sandbag",
         "website": "https://sandbag.be",
-        "tools": ["Python","Heroku","JupyterLab"],
-        "skills": ["D3.js","Climate Policy","Analytics","Data Visualization", "Project Management"],
+        "tools": ["D3.js","Python","Heroku","JupyterLab"],
+        "skills": ["Climate Policy","Analytics","Data Visualization", "Project Management"],
         "tasks": [
             "Performed quantitative analysis of EU carbon markets such as ETS and CBAM to support data-driven advocacy.",
             "Managed and developed data flows, dashboards, and analytical tools that supported loophole identification in policies, enhancing policy analysis."
+        ],
+        "projects": [
+            {
+                "name": "EU ETS Dashboard",
+                "description": "Analysed EU Emissions Trading System (EU ETS) 2023 data and developed a dashboard to visualize the results, with a focus on the iron and steel sector. The analysis revealed that steelmaking accounted for a quarter of industry emissions, providing critical insights to support climate advocacy and policy recommendations. This tool enabled stakeholders to better understand emission patterns and drive efforts towards more sustainable industry practices.",
+                "website": "https://sandbag.be/eu-ets-dashboard/",
+                "visual": "/assets/images/ets-dashboard.png"
+            },
+            {
+                "name": "A Scrap Game",
+                "description": "Conducted data analysis for the report A Scrap Game: Impacts of EU's Carbon Border Adjustment Mechanism, focusing on the EU's five main trading partners. Extracted and analysed historical industrial data, cross-referenced with emissions data using benchmarks defined by the European Commission.",
+                "website": "https://sandbag.be/2024/06/03/a-scrap-game-cbam-impacts/",
+                "visual": "/assets/images/cbam.png"
+            }
         ]
     },
     {
@@ -25,7 +39,8 @@
         "tasks": [
             "Translated business needs into data projects, extracting, transforming, and presenting KPIs across various organisational areas and supporting decision-making.",
             "Provided Tableau training to creators and business partners, enhancing their ability to utilise dashboards for decision-making."
-        ]
+        ],
+        "projects": []
     },
     {                        
         "id": "experience-rtbf",    
@@ -37,8 +52,30 @@
         "tools": ["D3.js","JavaScript","Python","AWS","JupyterLab","Tableau","MySQL","PostgreSQL","Docker","Kubernetes","MongoDB"],
         "skills": ["Project Management","Analytics", "TV & Radio","CRM","Data Journalism","Data Engineering","Data Visualization"],
         "tasks": ["Introduced data-driven decision-making into publishing, editorial, and marketing processes while developing a robust DataOps environment.",
-            "Participated in the creation of the recommendation system and collaborated with journalists on producing data-driven and interactive content."]
-    },    
+            "Participated in the creation of the recommendation system and collaborated with journalists on producing data-driven and interactive content."],
+        "projects": []
+    },
+    {                        
+        "id": "experience-ideascol",    
+        "position": "Co-Founder & Data Scientist",
+        "start":2020,
+        "end":2020,
+        "employer":"Ideas COL",
+        "website":"https://ideascol.github.io/",
+        "tools": ["D3.js","JavaScript"],
+        "skills": ["Data Journalism","Data Visualization"],
+        "tasks": ["Co-founded a data-driven initiative with two economists to develop tools with social impact in Colombia.",
+            "Collaborated with economists in providing transparent, high-quality insights into COVID-19 testing data in Colombia, empowering data-driven decisions during the pandemic."
+        ],
+        "projects": [
+            {
+                "name": "Colombia COVID-19 Tracker",
+                "description": "Designed and developed a web-based application to collect, aggregate, and visualize real-time COVID-19 testing data across Colombia.",
+                "website": "https://meilivh.github.io/covid19-col/",
+                "visual": "/assets/images/covid19.png"
+            }
+        ]
+    },      
     {                        
         "id": "experience-steer",
         "position": "Consultant",
@@ -49,50 +86,7 @@
         "tools": ["D3.js","JavaScript","Python","AWS","JupyterLab","AngularJS","ReactJS","PostgreSQL","MySQL"],
         "skills": ["Analytics","Transport","Urban Mobility","Infrastructure","Data Visualization"],
         "tasks": ["Participated in transport model projects for various Latin American cities supporting urban planning decisions.",
-        "Developed a visual analytics tool for trip matrices decision making in transport and urbanism."]
-    },    
-    {                        
-        "id": "experience-dexon",
-        "position": "Developer",
-        "start":2019,
-        "end":2019,
-        "employer":"Dexon",
-        "website":"https://dexon.us/",
-        "tools": ["D3.js","JavaScript","Python","AWS","AngularJS","ReactJS","PostgreSQL","MySQL"],
-        "skills": ["Development"],
-        "tasks": ["Participated in the project for processes automation for health public entities. Helping to extract, transform, and load (ETL) data, and visualize it in interactive dashboards."]
-    },    
-    {                        
-        "id": "experience-tuk",
-        "position": "Research Assistant",
-        "start":2017,
-        "end":2018,
-        "employer":"Computer Graphics & HCI Group at TUK",
-        "website":"https://hci.uni-kl.de/",
-        "tools": ["D3.js","JavaScript","Python","AWS","AngularJS","MySQL"],
-        "skills": ["Research", "Logistics"],
-        "tasks": ["Designed and implemented a visual analytics tool to support failure detection in manufacturing processes."]
-    },    
-    {                        
-        "id": "experience-caoba",
-        "position": "Researcher",
-        "start":2017,
-        "end":2017,
-        "employer":"Alianza Caoba",
-        "website":"http://alianzacaoba.co",
-        "tools": ["D3.js","JavaScript","Python","AWS","MySQL","Docker"],
-        "skills": ["Research"],
-        "tasks": ["Participated in a project along with the Secretary of Finance in Bogota to identify inaccurate taxpayers in real property taxes."]
-    },    
-    {                        
-        "id": "experience-tomsa",
-        "position": "Junior Researcher",
-        "start":2016,
-        "end":2016,
-        "employer":"I3S and Espace Laboratory at Sophia Antipolis",
-        "website":"https://www.i3s.unice.fr/en/",
-        "tools": ["D3.js","JavaScript","AWS","MySQL"],
-        "skills": ["Research"],
-        "tasks": ["Worked in the project Transport Oriented Modeling for urban denSification Analysis (TOMSA)/ECOS Nord, building a urban decision support platform, which holds a Urban Agent-Based Model (ABM) to simulate the relocation of households under a spatial and possibilistic scenario and visualize multiple scenarios."]
+        "Developed a visual analytics tool for trip matrices decision making in transport and urbanism."],
+        "projects": []
     }
 ]

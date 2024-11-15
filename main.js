@@ -15,19 +15,23 @@ const margin = {
 }
 
 const vw = original_vw*0.9
-const vh = original_vh*0.8
+const vh = original_vh*0.75
 
 let chart_width = vw*0.3
 let chart_height = vh
+
+let circleRadius = chart_width/8
 
 let w_h_ratio = (chart_width/chart_height <= 0.5)? HORIZONTAL : VERTICAL
 
 if (w_h_ratio === HORIZONTAL) {
     chart_width = vw*0.6
-    chart_height = vh*0.5
+    chart_height = vh*0.45
+    circleRadius = chart_height/10
 
-    d3.select('#svg-tools').attr('class', 'row')
-    d3.select('#svg-skills').attr('class', 'row')
+    d3.select('#svg-tools').attr('class', 'row chart')
+    d3.select('#skills-title').style('padding-bottom', '0px')
+    d3.select('#svg-skills').attr('class', 'row chart')
 }
 
 console.log(w_h_ratio)
@@ -107,7 +111,6 @@ d3.json('data/tools.json').then(nds => {
         */
         const svgSkills = d3
             .select("#svg-skills")
-            .style('text-align', 'center')
             .append('svg')
             .attr("width", `${chart_width*0.9}px`)
             .attr("height", `${chart_height*0.7}px`)
@@ -153,6 +156,50 @@ d3.json('data/tools.json').then(nds => {
                     .join('li')
                     .text(d => d)
 
+                let projects = detailsDiv.append('div')
+                    .attr('class','projects')
+                    
+                projects.append('p')
+                    .append('b')
+                    .text(d => `${d.projects.length > 0? 'Relevant Projects':''}`)
+
+                projects.append('div')
+                    .selectAll('.project')
+                    .data(d => d.projects)
+                    .join(
+                        enter => {
+                            let card = enter.append('div')
+                                .attr('class','project row')
+                                .append('div')
+                                .attr('class','col m12')
+                                .append('div')
+                                .attr('class','card')
+
+                            let title = card.append('div')
+                                .attr('class','card-image')
+                            
+                            title.append('img')
+                                .attr('src', d => d.visual)
+
+                            title.append('span')
+                                .attr('class', 'card-title black-text')
+                                .text(d => d.name)
+
+                            title.append('a')
+                                .attr('class', 'btn-floating halfway-fab waves-effect waves-light black')
+                                .attr('target', '_blank')
+                                .attr('href', d=>d.website)
+                                .append('i')
+                                .attr('class','material-icons')
+                                .text('add')
+
+                            let content = card.append('div')
+                                .attr('class','card-content')
+                                .append('p')
+                                .text(d => d.description)
+                        }                        
+                    )
+
                 experiences.map((experience, i) => {
 
                     new Waypoint({
@@ -187,7 +234,7 @@ d3.json('data/tools.json').then(nds => {
                                     linkStrokeOpacity: 0,
                                     nodeTitle: d => `${d.name}\n${d.type}`,
                                     nodeStrength: -100,
-                                    nodeRadius: 30,
+                                    nodeRadius: circleRadius,
                                     nodeText: d => d.name,
                                     color: color_graph
                                 })
@@ -227,14 +274,14 @@ d3.json('data/tools.json').then(nds => {
                                     linkStrokeOpacity: 0,
                                     nodeTitle: d => `${d.name}\n${d.type}`,
                                     nodeStrength: -100,
-                                    nodeRadius: 30,
+                                    nodeRadius: circleRadius,
                                     nodeText: d => d.name,
                                     color: color_graph
                                 })                                
 
                         }
                         },
-                        offset: `50%`
+                        offset: `60%`
                     })
                 })
                 
@@ -242,24 +289,24 @@ d3.json('data/tools.json').then(nds => {
                  * Fix/Unfix charts.
                 */
 
-                new Waypoint({
-                    element: document.getElementById(experiences[experiences.length-1].id),
-                    handler: direction => {
-                        if (direction === DOWN) {
-                            console.log(DOWN, w_h_ratio)
-                            d3.select('#right-wrapper')
-                                .style('position', 'unset')
-                                .style('top', '')            
-                                .style('left', '')
-                        }
-                        else if (direction === UP) {
-                            d3.select('#right-wrapper')
-                                .style('position', 'fixed')
-                                .style('top', `${margin.top}px`)
-                        }
-                    },
-                    offset: '-10%'
-                })
+                // new Waypoint({
+                //     element: document.getElementById(experiences[experiences.length-1].id),
+                //     handler: direction => {
+                //         if (direction === DOWN) {
+                //             console.log(DOWN, w_h_ratio)
+                //             d3.select('#right-wrapper')
+                //                 .style('position', 'unset')
+                //                 .style('top', '')            
+                //                 .style('left', '')
+                //         }
+                //         else if (direction === UP) {
+                //             d3.select('#right-wrapper')
+                //                 .style('position', 'fixed')
+                //                 .style('top', `${margin.top}px`)
+                //         }
+                //     },
+                //     offset: '-10%'
+                // })
 
             })
         })
