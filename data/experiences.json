@@ -7,7 +7,7 @@
         "employer": "Sandbag",
         "website": "https://sandbag.be",
         "tools": ["Python","Heroku","JupyterLab"],
-        "skills": ["Climate Policy","Analytics","Data Visualization", "Project Management"],
+        "skills": ["D3.js","Climate Policy","Analytics","Data Visualization", "Project Management"],
         "tasks": [
             "Performed quantitative analysis of EU carbon markets such as ETS and CBAM to support data-driven advocacy.",
             "Managed and developed data flows, dashboards, and analytical tools that supported loophole identification in policies, enhancing policy analysis."
