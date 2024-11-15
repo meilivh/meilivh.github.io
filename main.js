@@ -144,7 +144,6 @@ d3.json('data/tools.json').then(nds => {
                     .text(d => d.position)
 
                 detailsDiv.append('a')
-                    .append('p')
                     .attr('target','_blank')
                     .attr('class','link')
                     .attr('href', d => d.website)
