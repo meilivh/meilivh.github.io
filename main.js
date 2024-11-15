@@ -43,11 +43,13 @@ new Waypoint({
         if (direction === DOWN) {
             d3.select('#title').style('visibility', 'hidden')
             d3.select('#header').style('visibility', 'visible')
+            d3.select('#footer').style('visibility', 'visible')
             d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-out')
         }
         else if (direction === UP) {
             d3.select('#title').style('visibility', 'visible')
             d3.select('#header').style('visibility', 'hidden')
+            d3.select('#footer').style('visibility', 'hidden')
             d3.select('#transition-title').attr('class', 'grey darken-4 btn-floating btn-large scale-transition scale-in')
         }
     },
