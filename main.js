@@ -155,22 +155,15 @@ d3.json('data/tools.json').then(nds => {
                     .join('li')
                     .text(d => d)
 
-                let projects = detailsDiv.append('div')
-                    .attr('class','projects')
-                    
-                projects.append('p')
-                    .append('b')
-                    .text(d => `${d.projects.length > 0? 'Relevant Projects':''}`)
+                let projects = experiences.map(d => d.projects).flat()
 
-                projects.append('div')
+                d3.select('#projects')
                     .selectAll('.project')
-                    .data(d => d.projects)
+                    .data(projects)
                     .join(
                         enter => {
                             let card = enter.append('div')
-                                .attr('class','project row')
-                                .append('div')
-                                .attr('class','col m12')
+                                .attr('class','project col s6 m4 x4')
                                 .append('div')
                                 .attr('class','card')
 
@@ -198,6 +191,8 @@ d3.json('data/tools.json').then(nds => {
                                 .text(d => d.description)
                         }                        
                     )
+
+                
 
                 experiences.map((experience, i) => {
 
@@ -288,24 +283,24 @@ d3.json('data/tools.json').then(nds => {
                  * Fix/Unfix charts.
                 */
 
-                // new Waypoint({
-                //     element: document.getElementById(experiences[experiences.length-1].id),
-                //     handler: direction => {
-                //         if (direction === DOWN) {
-                //             console.log(DOWN, w_h_ratio)
-                //             d3.select('#right-wrapper')
-                //                 .style('position', 'unset')
-                //                 .style('top', '')            
-                //                 .style('left', '')
-                //         }
-                //         else if (direction === UP) {
-                //             d3.select('#right-wrapper')
-                //                 .style('position', 'fixed')
-                //                 .style('top', `${margin.top}px`)
-                //         }
-                //     },
-                //     offset: '-10%'
-                // })
+                new Waypoint({
+                    element: document.getElementById(experiences[experiences.length-1].id),
+                    handler: direction => {
+                        if (direction === DOWN) {
+                            console.log(DOWN, w_h_ratio)
+                            d3.select('#right-wrapper')
+                                .style('position', 'unset')
+                                .style('margin-top', `${(experiences.length-1)*100}vh`)            
+                        }
+                        else if (direction === UP) {
+                            d3.select('#right-wrapper')
+                                .style('position', 'fixed')
+                                .style('top', `${margin.top}px`)
+                                .style('margin-top', '')            
+                        }
+                    },
+                    offset: '-10%'
+                })
 
             })
         })

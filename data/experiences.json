@@ -15,7 +15,7 @@
         "projects": [
             {
                 "name": "EU ETS Dashboard",
-                "description": "Analysed EU Emissions Trading System (EU ETS) 2023 data and developed a dashboard to visualize the results, with a focus on the iron and steel sector. The analysis revealed that steelmaking accounted for a quarter of industry emissions, providing critical insights to support climate advocacy and policy recommendations. This tool enabled stakeholders to better understand emission patterns and drive efforts towards more sustainable industry practices.",
+                "description": "Analysed EU Emissions Trading System (EU ETS) 2023 data revealing that steelmaking accounted for a quarter of industry emissions, providing critical insights to support climate advocacy and policy recommendations.",
                 "website": "https://sandbag.be/eu-ets-dashboard/",
                 "visual": "/assets/images/ets-dashboard.png"
             },
