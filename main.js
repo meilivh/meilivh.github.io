@@ -192,8 +192,6 @@ d3.json('data/tools.json').then(nds => {
                         }                        
                     )
 
-                
-
                 experiences.map((experience, i) => {
 
                     new Waypoint({
